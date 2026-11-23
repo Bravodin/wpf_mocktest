@@ -1,6 +1,6 @@
 using Bogus;
 using Bogus.Extensions.Brazil;
-using ErpMock.Core.Models;
+using ErpMock.Contracts.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ErpMock.Core.Data;

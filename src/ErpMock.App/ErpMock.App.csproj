@@ -1,12 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <!-- Só a interface (WPF, Windows). Fala com a API por ErpMock.Client; não conhece banco nem EF. -->
   <ItemGroup>
-    <ProjectReference Include="..\ErpMock.Core\ErpMock.Core.csproj" />
+    <ProjectReference Include="..\ErpMock.Contracts\ErpMock.Contracts.csproj" />
+    <ProjectReference Include="..\ErpMock.Client\ErpMock.Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.15" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <PropertyGroup>

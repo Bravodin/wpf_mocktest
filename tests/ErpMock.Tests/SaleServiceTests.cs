@@ -1,4 +1,5 @@
-using ErpMock.Core.Models;
+using ErpMock.Contracts.Models;
+using ErpMock.Contracts.Services;
 using ErpMock.Core.Services;
 
 namespace ErpMock.Tests;

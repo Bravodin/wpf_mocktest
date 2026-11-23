@@ -1,4 +1,6 @@
-namespace ErpMock.Core.Models;
+using System.Text.Json.Serialization;
+
+namespace ErpMock.Contracts.Models;
 
 public enum SaleStatus
 {
@@ -25,6 +27,8 @@ public class Sale : Entity
 public class SaleItem : Entity
 {
     public int SaleId { get; set; }
+    // Só para o EF (navegação inversa); fora do JSON para não criar ciclo Sale → Items → Sale.
+    [JsonIgnore]
     public Sale? Sale { get; set; }
     public int ProductId { get; set; }
     public Product? Product { get; set; }

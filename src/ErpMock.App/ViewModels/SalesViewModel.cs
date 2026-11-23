@@ -2,8 +2,8 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ErpMock.App.Services;
-using ErpMock.Core.Models;
-using ErpMock.Core.Services;
+using ErpMock.Contracts.Models;
+using ErpMock.Contracts.Services;
 
 namespace ErpMock.App.ViewModels;
 

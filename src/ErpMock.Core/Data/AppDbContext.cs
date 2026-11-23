@@ -1,4 +1,4 @@
-using ErpMock.Core.Models;
+using ErpMock.Contracts.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ErpMock.Core.Data;
@@ -9,6 +9,14 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Product> Products => Set<Product>();
     public DbSet<Sale> Sales => Set<Sale>();
     public DbSet<SaleItem> SaleItems => Set<SaleItem>();
+
+    protected override void ConfigureConventions(ModelConfigurationBuilder b)
+    {
+        // As datas do ERP são hora local (DateTime.Now). No PostgreSQL o padrão do Npgsql é
+        // "timestamp with time zone", que só aceita UTC; "without time zone" guarda a hora como veio.
+        if (Database.IsNpgsql())
+            b.Properties<DateTime>().HaveColumnType("timestamp without time zone");
+    }
 
     protected override void OnModelCreating(ModelBuilder b)
     {

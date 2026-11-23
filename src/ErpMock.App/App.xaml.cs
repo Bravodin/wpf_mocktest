@@ -1,16 +1,12 @@
 using System.Globalization;
-using System.IO;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Threading;
 using ErpMock.App.Services;
 using ErpMock.App.ViewModels;
-using ErpMock.Core;
-using ErpMock.Core.Data;
-using Microsoft.EntityFrameworkCore;
+using ErpMock.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace ErpMock.App;
 
@@ -24,13 +20,13 @@ public partial class App : Application
         ConfigureCulture();
         DispatcherUnhandledException += OnUnhandledException;
 
-        var dataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ErpMock");
-        Directory.CreateDirectory(dataDir);
+        // appsettings.json ao lado do .exe (não do diretório atual, que muda conforme o atalho).
+        var builder = Host.CreateApplicationBuilder(new HostApplicationBuilderSettings { ContentRootPath = AppContext.BaseDirectory });
 
-        var builder = Host.CreateApplicationBuilder();
-        builder.Logging.AddFilter("Microsoft.EntityFrameworkCore", LogLevel.Warning);
-
-        builder.Services.AddErpCore($"Data Source={Path.Combine(dataDir, "erp.db")}");
+        // As regras de negócio rodam na API (ErpMock.Api); o app só chama por HTTP.
+        // Troque o endereço em appsettings.json ou com a variável de ambiente ErpApi__BaseUrl.
+        var apiUrl = builder.Configuration["ErpApi:BaseUrl"] ?? "http://localhost:8080/";
+        builder.Services.AddErpApiClient(new Uri(apiUrl));
 
         builder.Services.AddSingleton<IDialogService, DialogService>();
         builder.Services.AddSingleton<IPrintService, PrintService>();
@@ -45,14 +41,6 @@ public partial class App : Application
 
         _host = builder.Build();
         await _host.StartAsync();
-
-        // Cria o banco SQLite e popula com dados fictícios na primeira execução.
-        var factory = _host.Services.GetRequiredService<IDbContextFactory<AppDbContext>>();
-        await using (var db = await factory.CreateDbContextAsync())
-        {
-            await db.Database.EnsureCreatedAsync();
-            await DataSeeder.SeedAsync(db);
-        }
 
         var window = _host.Services.GetRequiredService<MainWindow>();
         MainWindow = window;

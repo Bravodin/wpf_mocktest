@@ -1,0 +1,38 @@
+# API + PostgreSQL. Na raiz do repositório:
+#   docker compose up -d --build     # sobe tudo; a API fica em http://localhost:8080
+#   docker compose down              # para (os dados ficam no volume "pgdata")
+#   docker compose down -v           # para e apaga o banco (recomeça com dados fictícios novos)
+# Depois é só abrir o app WPF, que aponta para http://localhost:8080 por padrão.
+
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: erp
+      POSTGRES_USER: erp
+      POSTGRES_PASSWORD: erp   # só para desenvolvimento local
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U erp -d erp"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build:
+      context: .
+      dockerfile: src/ErpMock.Api/Dockerfile
+    environment:
+      Database__Provider: Postgres
+      ConnectionStrings__Erp: Host=db;Database=erp;Username=erp;Password=erp
+      # As datas do ERP são hora local: sem isto o container usaria UTC.
+      TZ: America/Sao_Paulo
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

@@ -1,6 +1,9 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/ErpMock.Api/ErpMock.Api.csproj" />
     <Project Path="src/ErpMock.App/ErpMock.App.csproj" />
+    <Project Path="src/ErpMock.Client/ErpMock.Client.csproj" />
+    <Project Path="src/ErpMock.Contracts/ErpMock.Contracts.csproj" />
     <Project Path="src/ErpMock.Core/ErpMock.Core.csproj" />
   </Folder>
   <Folder Name="/tests/">

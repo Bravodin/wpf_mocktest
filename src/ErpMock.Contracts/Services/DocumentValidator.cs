@@ -1,4 +1,4 @@
-namespace ErpMock.Core.Services;
+namespace ErpMock.Contracts.Services;
 
 /// <summary>Validação de CPF e CNPJ pelos dígitos verificadores.</summary>
 public static class DocumentValidator

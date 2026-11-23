@@ -4,7 +4,7 @@ using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ErpMock.App.Services;
-using ErpMock.Core.Services;
+using ErpMock.Contracts.Services;
 
 namespace ErpMock.App.ViewModels;
 
@@ -17,10 +17,10 @@ public partial class ReportsViewModel(IReportService reports, IPrintService prin
 
     public static IReadOnlyList<ReportOption> Options { get; } =
     [
-        new(ReportType.SalesByPeriod, ReportService.GetTitle(ReportType.SalesByPeriod), "Todas as vendas do período, com status."),
-        new(ReportType.SalesByCustomer, ReportService.GetTitle(ReportType.SalesByCustomer), "Ranking de clientes por faturamento."),
-        new(ReportType.SalesByProduct, ReportService.GetTitle(ReportType.SalesByProduct), "Quantidade, faturamento e lucro bruto por produto."),
-        new(ReportType.Inventory, ReportService.GetTitle(ReportType.Inventory), "Estoque atual e valor imobilizado."),
+        new(ReportType.SalesByPeriod, Reports.GetTitle(ReportType.SalesByPeriod), "Todas as vendas do período, com status."),
+        new(ReportType.SalesByCustomer, Reports.GetTitle(ReportType.SalesByCustomer), "Ranking de clientes por faturamento."),
+        new(ReportType.SalesByProduct, Reports.GetTitle(ReportType.SalesByProduct), "Quantidade, faturamento e lucro bruto por produto."),
+        new(ReportType.Inventory, Reports.GetTitle(ReportType.Inventory), "Estoque atual e valor imobilizado."),
     ];
 
     [ObservableProperty]

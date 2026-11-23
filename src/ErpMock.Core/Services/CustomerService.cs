@@ -1,15 +1,9 @@
+using ErpMock.Contracts.Models;
+using ErpMock.Contracts.Services;
 using ErpMock.Core.Data;
-using ErpMock.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ErpMock.Core.Services;
-
-public interface ICustomerService
-{
-    Task<List<Customer>> GetAllAsync(string? search = null, bool onlyActive = false);
-    Task<Customer> SaveAsync(Customer customer);
-    Task DeleteAsync(int id);
-}
 
 public class CustomerService(IDbContextFactory<AppDbContext> factory) : ICustomerService
 {

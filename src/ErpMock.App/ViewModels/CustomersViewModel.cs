@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using CommunityToolkit.Mvvm.ComponentModel;
 using ErpMock.App.Services;
-using ErpMock.Core.Models;
-using ErpMock.Core.Services;
+using ErpMock.Contracts.Models;
+using ErpMock.Contracts.Services;
 
 namespace ErpMock.App.ViewModels;
 

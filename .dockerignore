@@ -1,0 +1,8 @@
+**/bin/
+**/obj/
+**/.vs/
+**/*.db
+.git/
+screenshots/
+docs/
+tests/

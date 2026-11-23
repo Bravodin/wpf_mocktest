@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using ErpMock.App.Services;
-using ErpMock.Core.Services;
+using ErpMock.Client;
+using ErpMock.Contracts.Services;
 
 namespace ErpMock.App.ViewModels;
 
@@ -23,6 +24,10 @@ public abstract partial class ViewModelBase(IDialogService dialogs) : Observable
         catch (BusinessException ex)
         {
             Dialogs.ShowWarning(ex.Message);
+        }
+        catch (ApiUnavailableException ex)
+        {
+            Dialogs.ShowError(ex.Message);
         }
         catch (Exception ex)
         {

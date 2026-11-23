@@ -1,4 +1,4 @@
-namespace ErpMock.Core.Models;
+namespace ErpMock.Contracts.Models;
 
 public class Product : Entity
 {

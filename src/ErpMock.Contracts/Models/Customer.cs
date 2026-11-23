@@ -1,4 +1,6 @@
-namespace ErpMock.Core.Models;
+using System.Text.Json.Serialization;
+
+namespace ErpMock.Contracts.Models;
 
 public enum PersonType
 {
@@ -18,5 +20,7 @@ public class Customer : Entity
     public bool IsActive { get; set; } = true;
     public DateTime CreatedAt { get; set; } = DateTime.Now;
 
+    // Só para o EF (navegação inversa); fora do JSON para não criar ciclo Sale → Customer → Sales.
+    [JsonIgnore]
     public List<Sale> Sales { get; set; } = [];
 }

@@ -1,5 +1,5 @@
 using ErpMock.Core.Data;
-using ErpMock.Core.Models;
+using ErpMock.Contracts.Models;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 

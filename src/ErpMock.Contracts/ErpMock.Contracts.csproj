@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- O contrato entre a API e os clientes: modelos, interfaces dos serviços e DTOs.
+       Sem dependências (nem EF, nem WPF), para qualquer front poder referenciar. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
